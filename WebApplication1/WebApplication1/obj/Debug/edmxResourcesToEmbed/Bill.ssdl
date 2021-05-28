@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SampleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BillDetail">
+    <Key>
+      <PropertyRef Name="Bill_Id" />
+    </Key>
+    <Property Name="Bill_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="B_Id" Type="int" Nullable="false" />
+    <Property Name="S_Id" Type="int" Nullable="false" />
+    <Property Name="Rate" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BillMaster">
+    <Key>
+      <PropertyRef Name="B_Id" />
+    </Key>
+    <Property Name="B_Id" Type="int" Nullable="false" />
+    <Property Name="B_No" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="B_Date" Type="datetime" Nullable="false" />
+    <Property Name="Drscription" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Cust_id" />
+    </Key>
+    <Property Name="Cust_id" Type="int" Nullable="false" />
+    <Property Name="Cust_name" Type="varchar(max)" />
+    <Property Name="Age" Type="nchar" MaxLength="10" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile_No" Type="nchar" MaxLength="10" />
+    <Property Name="Medicien_name" Type="varchar(max)" />
+    <Property Name="Unit" Type="varchar(max)" />
+    <Property Name="Quantity" Type="varchar(max)" />
+    <Property Name="Type" Type="varchar(max)" />
+    <Property Name="Cust_Address" Type="varchar(max)" />
+    <Property Name="B_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Stocks">
+    <Key>
+      <PropertyRef Name="S_Id" />
+    </Key>
+    <Property Name="S_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Medicien_name" Type="varchar(max)" />
+    <Property Name="Quantity" Type="varchar(max)" />
+    <Property Name="Type" Type="varchar(max)" />
+    <Property Name="Unit" Type="varchar" MaxLength="50" />
+    <Property Name="mfg" Type="varchar" MaxLength="50" />
+    <Property Name="P_Rate" Type="nchar" MaxLength="20" />
+    <Property Name="D_Rate" Type="nchar" MaxLength="10" />
+    <Property Name="GST" Type="nchar" MaxLength="10" />
+    <Property Name="S_Rate" Type="nchar" MaxLength="10" />
+    <Property Name="Cust_id" Type="int" />
+  </EntityType>
+  <Association Name="FK_BillDetail_BillMaster">
+    <End Role="BillMaster" Type="Self.BillMaster" Multiplicity="1" />
+    <End Role="BillDetail" Type="Self.BillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillMaster">
+        <PropertyRef Name="B_Id" />
+      </Principal>
+      <Dependent Role="BillDetail">
+        <PropertyRef Name="B_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SampleDBModelStoreContainer">
+    <EntitySet Name="BillDetail" EntityType="Self.BillDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BillMaster" EntityType="Self.BillMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stocks" EntityType="Self.Stocks" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BillDetail_BillMaster" Association="Self.FK_BillDetail_BillMaster">
+      <End Role="BillMaster" EntitySet="BillMaster" />
+      <End Role="BillDetail" EntitySet="BillDetail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

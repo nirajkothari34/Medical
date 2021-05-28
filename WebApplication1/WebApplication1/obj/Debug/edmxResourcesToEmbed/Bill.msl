@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SampleDBModelStoreContainer" CdmEntityContainer="SampleDBEntities1">
+    <EntitySetMapping Name="BillDetails">
+      <EntityTypeMapping TypeName="SampleDBModel.BillDetail">
+        <MappingFragment StoreEntitySet="BillDetail">
+          <ScalarProperty Name="Bill_Id" ColumnName="Bill_Id" />
+          <ScalarProperty Name="B_Id" ColumnName="B_Id" />
+          <ScalarProperty Name="S_Id" ColumnName="S_Id" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillMasters">
+      <EntityTypeMapping TypeName="SampleDBModel.BillMaster">
+        <MappingFragment StoreEntitySet="BillMaster">
+          <ScalarProperty Name="B_Id" ColumnName="B_Id" />
+          <ScalarProperty Name="B_No" ColumnName="B_No" />
+          <ScalarProperty Name="B_Date" ColumnName="B_Date" />
+          <ScalarProperty Name="Drscription" ColumnName="Drscription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="SampleDBModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Cust_id" ColumnName="Cust_id" />
+          <ScalarProperty Name="Cust_name" ColumnName="Cust_name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Mobile_No" ColumnName="Mobile_No" />
+          <ScalarProperty Name="Medicien_name" ColumnName="Medicien_name" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Cust_Address" ColumnName="Cust_Address" />
+          <ScalarProperty Name="B_Id" ColumnName="B_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stocks">
+      <EntityTypeMapping TypeName="SampleDBModel.Stock">
+        <MappingFragment StoreEntitySet="Stocks">
+          <ScalarProperty Name="S_Id" ColumnName="S_Id" />
+          <ScalarProperty Name="Medicien_name" ColumnName="Medicien_name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="mfg" ColumnName="mfg" />
+          <ScalarProperty Name="P_Rate" ColumnName="P_Rate" />
+          <ScalarProperty Name="D_Rate" ColumnName="D_Rate" />
+          <ScalarProperty Name="GST" ColumnName="GST" />
+          <ScalarProperty Name="S_Rate" ColumnName="S_Rate" />
+          <ScalarProperty Name="Cust_id" ColumnName="Cust_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

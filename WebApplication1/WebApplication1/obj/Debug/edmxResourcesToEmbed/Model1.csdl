@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SampleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="B_Id" />
+    </Key>
+    <Property Name="B_Id" Type="Int32" Nullable="false" />
+    <Property Name="Bill_Date" Type="DateTime" Precision="3" />
+    <Property Name="Sr_No" Type="Int32" />
+    <Property Name="Medicien_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sa_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_Bill_Sales" FromRole="Bill" ToRole="Sales" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Cust_id" />
+    </Key>
+    <Property Name="Cust_id" Type="Int32" Nullable="false" />
+    <Property Name="Cust_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile_No" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Medicien_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Cust_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="B_Id" Type="Int32" />
+    <NavigationProperty Name="Sales" Relationship="Self.FK_Sales_Customer" FromRole="Customer" ToRole="Sales" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Sa_Id" />
+    </Key>
+    <Property Name="Sa_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cust_Id" Type="Int32" Nullable="false" />
+    <Property Name="St_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Sales" FromRole="Sales" ToRole="Bill" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Sales_Customer" FromRole="Sales" ToRole="Customer" />
+  </EntityType>
+  <Association Name="FK_Bill_Sales">
+    <End Role="Sales" Type="Self.Sale" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sales">
+        <PropertyRef Name="Sa_Id" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="Sa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Sales" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Cust_id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="Cust_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SampleDBEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bills" EntityType="Self.Bill" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Sales" EntityType="Self.Sale" />
+    <AssociationSet Name="FK_Bill_Sales" Association="Self.FK_Bill_Sales">
+      <End Role="Sales" EntitySet="Sales" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_Customer" Association="Self.FK_Sales_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

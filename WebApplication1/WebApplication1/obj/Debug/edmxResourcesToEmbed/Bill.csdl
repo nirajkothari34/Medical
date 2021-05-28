@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SampleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BillDetail">
+    <Key>
+      <PropertyRef Name="Bill_Id" />
+    </Key>
+    <Property Name="Bill_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="B_Id" Type="Int32" Nullable="false" />
+    <Property Name="S_Id" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BillMaster" Relationship="Self.FK_BillDetail_BillMaster" FromRole="BillDetail" ToRole="BillMaster" />
+  </EntityType>
+  <EntityType Name="BillMaster">
+    <Key>
+      <PropertyRef Name="B_Id" />
+    </Key>
+    <Property Name="B_Id" Type="Int32" Nullable="false" />
+    <Property Name="B_No" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="B_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Drscription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BillDetails" Relationship="Self.FK_BillDetail_BillMaster" FromRole="BillMaster" ToRole="BillDetail" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Cust_id" />
+    </Key>
+    <Property Name="Cust_id" Type="Int32" Nullable="false" />
+    <Property Name="Cust_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile_No" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Medicien_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Cust_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="B_Id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="S_Id" />
+    </Key>
+    <Property Name="S_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Medicien_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mfg" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="P_Rate" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="D_Rate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="GST" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="S_Rate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Cust_id" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_BillDetail_BillMaster">
+    <End Role="BillMaster" Type="Self.BillMaster" Multiplicity="1" />
+    <End Role="BillDetail" Type="Self.BillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillMaster">
+        <PropertyRef Name="B_Id" />
+      </Principal>
+      <Dependent Role="BillDetail">
+        <PropertyRef Name="B_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SampleDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BillDetails" EntityType="Self.BillDetail" />
+    <EntitySet Name="BillMasters" EntityType="Self.BillMaster" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Stocks" EntityType="Self.Stock" />
+    <AssociationSet Name="FK_BillDetail_BillMaster" Association="Self.FK_BillDetail_BillMaster">
+      <End Role="BillMaster" EntitySet="BillMasters" />
+      <End Role="BillDetail" EntitySet="BillDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
